@@ -1,0 +1,34 @@
+
+
+# our hello.asm:
+# ok so this is one way of running assembly on mac:
+nasm -fmacho64 hello.asm && ld -macosx_version_min 10.15 -lSystem hello.o && ./a.out
+	# works with global _main but not global start or _start
+	# prolly would work if we put it in a libary...
+
+
+
+If i directly shove all my functions into a library and compile a main.c with
+it i won't have much to worry about...
+
+
+64.asm works the same way, needs the same shit to compile...
+
+main.s works flawlessly...
+	compiles with clang, is a .s
+
+Ok so clang .s works but only for main.s, not with others, not sure why
+maybe bad Opcodes? like they aren't availible to clang ?
+But in any case, main.s is in the wrong formate or norm, i think...
+
+
+Use Nasm from now on, it is the expected syntax.
+
+
+This shit works without the warning, added: -no_pie
+nasm -fmacho64 hello.asm && ld -macosx_version_min 10.13 -lSystem -no_pie hello.o && ./a.out
+
+
+
+
+
