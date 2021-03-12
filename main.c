@@ -1,9 +1,11 @@
 
+#include <libasm.h>
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include <errno.h>
 
 int		ft_strlen(char const *str);
 char	*ft_strcpy(char *dst, char const *src);
@@ -83,8 +85,16 @@ int		main(int ac, char **av)
 			printf("Ft_write\n");
 			if (ac == 2)
 			{
-				write(1, "OG here i am\n", 13);
-				ft_write(1, "ME here i am\n", 13);
+				printf("---------------WRITE--------------\n");
+				printf("%ld\n", ft_write(11, "Hello, world\n", 4));
+				printf("%s %d\n", strerror(errno), errno);
+				printf("%ld\n", write(11, "Hello, world\n", 4));
+				printf("%s %d\n", strerror(errno), errno);
+
+				//printf("|[%li]****\n", ft_write(1, "Mine aight", -10));
+				//printf("|[%li]****\n", write(1, "OG one ok.", -10));
+				//write(1, "OG here i am\n", -5);
+				//ft_write(1, "ME here i am\n", -5);
 			}
 			else if (ac == 3)
 			{
@@ -102,8 +112,10 @@ int		main(int ac, char **av)
 		}
 		else if (atoi(av[1]) == 6)	// strdup
 		{
-			printf("Ft_strdup\n");
-
+		// This is not at all secure...
+			printf("Ft_strdup, s1: |%s|\n", s1);
+			printf("OG ret: |%s|\n", strdup(s1));
+			printf("My ret: |%s|\n", ft_strdup(s1));
 
 		}
 		else if (atoi(av[1]) == 7)	// atoi_base

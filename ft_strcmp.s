@@ -1,41 +1,38 @@
-		section	.text
 		global	ft_strcmp
+		section	.text
 
-; rdi and rsi
+; rdi and rsi are the Arguments
 ; rdx is counter
 ; rax is value of dif and the return
-; why r8, would something else work?
-
-; New Logic:
-; we set everything, counters and such to 0
-; we compare until diference
-; we make rax the dif.
-
+; rcx is a tmp var
+; for some reason rdx doesn't want to increment or gets reset or somethign
+; but r8 is perfectly fine...
 
 ft_strcmp:
-			mov	rax, 0
-			mov	rdx, 0
-			mov	r8, 0
+			mov	rax, 0x0
+			mov	rdx, 6
+			mov	rcx, 0x0
+			mov r8, 0
+			mov	dl, 0x0
 			jmp	loop
 
-cmp:
-			mov	rax, [rdi + rdx]	; if use byte before, it gets upset
-			mov r8, [rsi + rdx]		; "missmaching operand size"
-			sub	rax, r8
-		;	cmp	rax, r8
+compar:
+			mov	dl, BYTE[rdi + r8]
+			cmp	dl, BYTE[rsi + r8]
 			jne	end
-			inc	rdx
+			inc	r8
 
 loop:
-			cmp	byte [rdi + rdx], 0
+			cmp	BYTE[rdi + r8], 0x0
 			je	end
-			cmp byte [rsi + rdx], 0
+			cmp BYTE[rsi + r8], 0x0
 			je	end
-			jmp	cmp
+			jmp	compar
 
 end:
-			;mov	rax, [rdi + rdx]	; if use byte before, it gets upset
-			;mov r8, [rsi + rdx]		; "missmaching operand size
-			;sub r8, rax
+			mov	dl, 0x0			; This line is crucial to the math, i think dl is in rax
+			movzx	rax, BYTE[rdi + r8]
+			movzx	rcx, BYTE[rsi + r8]
+			sub rax, rcx
+			;mov rax, r8
 			ret
-
