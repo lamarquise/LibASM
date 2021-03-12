@@ -1,5 +1,5 @@
-			section .text
 			global	ft_strlen
+			section .text
 
 ft_strlen:
 			mov		rax, 0

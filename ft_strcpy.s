@@ -1,5 +1,5 @@
-		section .text
 		global ft_strcpy
+		section .text
 
 ; rdi is dst rsi is src
 ; al is the first 8 bit memory location
