@@ -15,6 +15,7 @@ ssize_t	ft_read(int fd, void *buf, size_t nbyte);
 char	*ft_strdup(char const *s1);
 int		hello_world();
 
+
 // kinda useless in the long run
 char	*ft_bmalloc(char *str)
 {
