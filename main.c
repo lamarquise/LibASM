@@ -118,12 +118,12 @@ int		main(int ac, char **av)
 			printf("My ret: |%s|\n", ft_strdup(s1));
 
 		}
-		else if (atoi(av[1]) == 7)	// atoi_base
-		{
-			printf("Ft_atoi_base\n");
-
-
-		}
+//		else if (atoi(av[1]) == 7)	// atoi_base
+//		{
+//			printf("Ft_atoi_base\n");
+//
+//
+//		}
 		else if (atoi(av[1]) == 8)	// list_push_front
 		{
 			printf("Ft_list_push_front\n");
