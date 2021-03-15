@@ -13,6 +13,7 @@ FILES	=	ft_strlen.s \
 			ft_strdup.s \
 			hello_world.s \
 			ft_list_size_bonus.s \
+			ft_list_push_front_bonus.s \
 
 MAIN	=	main.c \
 

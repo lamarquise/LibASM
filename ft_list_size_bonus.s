@@ -6,6 +6,7 @@
 
 ft_list_size:
 				mov	rax, 0x0
+; consider puting more stuff in here... like moving some checks in here
 
 count:
 				cmp	rdi, 0x0
