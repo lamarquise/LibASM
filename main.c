@@ -142,12 +142,12 @@ int		main(int ac, char **av)
 
 
 		}
-		else if (atoi(av[1]) == 11)	// list_remove_if
-		{
-			printf("Ft_list_remove_if\n");
-
-
-		}
+//		else if (atoi(av[1]) == 11)	// list_remove_if
+//		{
+//			printf("Ft_list_remove_if\n");
+//
+//
+//		}
 		else if (atoi(av[1]) == 12)	// hello world
 		{
 			printf("Now calling hello_world:\n");
