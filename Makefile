@@ -2,6 +2,8 @@
 
 NAME	=	libasm.a
 
+TESTER	=	test
+
 NASM	=	nasm -felf64
 LD		=	ld -o $(NAME)
 
@@ -11,12 +13,12 @@ FILES	=	ft_strlen.s \
 			ft_write.s \
 			ft_read.s \
 			ft_strdup.s \
-			hello_world.s \
-			ft_list_size_bonus.s \
-			ft_list_push_front_bonus.s \
+#			ft_list_size_bonus.s \
+#			ft_list_push_front_bonus.s \
+#			hello_world.s \
 
-MAIN	=	main.c \
-
+MAIN	=	main2.c \
+#			main.c \
 
 OBJ_NAME = $(FILES:.s=.o)
 OBJ_DIR	 = obj/
@@ -33,11 +35,12 @@ $(NAME): $(OBJS)
 $(OBJ_DIR)%.o: %.s
 	mkdir -p $(OBJ_DIR)
 	$(NASM) -o $@ $<
-	printf "$(_CYAN)\r\33[2K\rCompling $@$(_END)"
+	echo "$(_CYAN)\r\33[2K\rCompling $@$(_END)"
 
 
-test: all
-	gcc main.c -L. -lasm -o test
+$(TESTER): all
+	gcc $(MAIN) -L. -lasm -o test
+	printf "$(_GREEN)\r\33[2K\r$(TESTER) created 😎\n$(_END)"
 #	./test
 
 # Temporarily
@@ -72,6 +75,7 @@ _GREEN=$ \033[32m
 _RED=$ \033[31m
 _YELLOW=$ \033[33m
 _BLUE=$ \033[34m
+_CYAN=$ \033[36m
 
 
 .SILENT:

@@ -16,7 +16,7 @@
 ft_strdup:
 			mov rax, 0x0
 			mov	r8, 0x0
-			cmp	BYTE[rdi], 0x0
+			cmp rdi, 0x0
 			je	end
 	; could have a special function here that allocates an empty string.
 
