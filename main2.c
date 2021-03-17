@@ -1,23 +1,9 @@
 
-//#include <libasm.h>
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <errno.h>
-#include <fcntl.h>
-
-int		ft_strlen(char const *str);
-char	*ft_strcpy(char *dst, char const *src);
-int		ft_strcmp(char const *s1, char const *s2);
-ssize_t	ft_write(int fd, void const *buf, size_t nbyte);
-ssize_t	ft_read(int fd, void *buf, size_t nbyte);
-char	*ft_strdup(char const *s1);
+#include <libasm.h>
 
 void	test_strlen(char *s1)
 {
-	printf("String: |%s|\nOG strlen: |%ld|\nMY strlen: |%d|\n\n", s1, \
+	printf("String: |%s|\nOG strlen: |%ld|\nMY strlen: |%ld|\n\n", s1, \
 			strlen(s1), ft_strlen(s1));
 }
 
@@ -56,6 +42,8 @@ void	test_read(int fd1, int fd2, int len)
 
 	bzero(buf1, 100);
 	bzero(buf2, 100);
+	if (fd1 == 1 || fd2 == 1)
+		printf("---STDIN---\n");
 	printf("OG read return: |%ld|\nError str: |%s|\nErrno: |%d|\n\e[1;32mBuf:\e[0m |%s|\
 			\n", \
 			read(fd1, buf1, len), strerror(errno), errno, buf1);
@@ -73,14 +61,12 @@ void	test_strdup(char *s1)
 	copy2 = NULL;
 	copy1 = strdup(s1);
 	copy2 = ft_strdup(s1);
-
 	printf("String: |%s|\nOG copy: |%s|\nMY copy: |%s|\n\n", s1, copy1, copy2);
 	free(copy1);
 	free(copy2);
 }
 
-
-int		main(int ac, char **av)
+int		main(void)
 {
 	int		fd1;
 	int		fd2;
@@ -99,9 +85,6 @@ int		main(int ac, char **av)
 	char	*s1 = "Hello";
 	char	*s2 = "word";
 	char	*s3 = "hi";
-
-// will prolly need more things in these strings, like strange stuff...
-
 
 	printf("\e[0;31m---------------STRLEN-------------\e[0m\n");
 	test_strlen(long_str);
@@ -147,7 +130,6 @@ int		main(int ac, char **av)
 	test_write(17, s1, strlen(s1));
 
 	printf("\e[0;31m---------------READ---------------\e[0m\n");
-
 	fd1 = open("main.c", O_RDONLY);
 	fd2 = open("main.c", O_RDONLY);
 	test_read(fd1, fd2, 5);
@@ -158,9 +140,9 @@ int		main(int ac, char **av)
 	test_read(-1, -1, -5);
 	test_read(42, 42, -5);
 	test_read(0, 0, -5);
-	test_read(STDIN_FILENO, STDIN_FILENO, -5);
-	
-
+	test_read(1, 1, 5);
+	test_read(fd1 + 5, fd2 + 5, 5);
+	test_read(STDIN_FILENO, STDIN_FILENO, -5); // not clear if this actually works...
 	close(fd1);
 	close(fd2);
 
@@ -175,7 +157,7 @@ int		main(int ac, char **av)
 	test_strdup("1234\0asdfasdf");
 
 
-	return (1);
+	return (0);
 }
 
 

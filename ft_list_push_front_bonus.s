@@ -2,9 +2,7 @@
 		extern	malloc
 		section	.text
 
-; im gonna guess that rdi is **begin_list and rsi is *data
-; I need to create a new elem and fill it...
-
+; rdi is **begin_list and rsi is *data
 
 ft_list_push_front:
 				cmp		rdi, 0x0
@@ -16,7 +14,7 @@ ft_list_push_front:
 
 allocate:
 				mov		rdi, 16		; the size of the malloc is 16 cuz 2 var
-				call	malloc
+				call	malloc WRT ..plt
 				cmp		rax, 0x0
 				jz		end
 

@@ -1,5 +1,3 @@
-
-
 NAME	=	libasm.a
 
 TESTER	=	test
@@ -17,12 +15,27 @@ FILES	=	ft_strlen.s \
 #			ft_list_push_front_bonus.s \
 #			hello_world.s \
 
-MAIN	=	main2.c \
+BONUS_FILES	=	ft_list_size_bonus.s \
+				ft_list_push_front_bonus.s \
+
+
+#MAIN	=	main2.c \
 #			main.c \
 
+#BONUS_MAIN	=	main_bonus.c
+
 OBJ_NAME = $(FILES:.s=.o)
+OBJ_BONUS_NAME = $(BONUS_FILES:.s=.o)
 OBJ_DIR	 = obj/
+#OBJS = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
+
+ifdef WITH_BONUS
+OBJS = $(addprefix $(OBJ_DIR),$(OBJ_NAME)) $(addprefix $(OBJ_DIR),$(OBJ_BONUS_NAME))
+MAIN = main_bonus.c
+else
 OBJS = $(addprefix $(OBJ_DIR),$(OBJ_NAME))
+MAIN = main2.c
+endif
 
 
 
@@ -37,15 +50,16 @@ $(OBJ_DIR)%.o: %.s
 	$(NASM) -o $@ $<
 	echo "$(_CYAN)\r\33[2K\rCompling $@$(_END)"
 
+bonus:
+	$(MAKE) WITH_BONUS=1 all
 
-$(TESTER): all
-	gcc $(MAIN) -L. -lasm -o test
+test: all
+	gcc $(MAIN) -I. -L. -lasm -o test
 	printf "$(_GREEN)\r\33[2K\r$(TESTER) created 😎\n$(_END)"
 #	./test
 
-# Temporarily
-bonus: all
-
+btest:
+	$(MAKE) WITH_BONUS=1 test
 
 #$(NAME): $(OBJS) $(MAIN)
 #	gcc $(OBJS) $(MAIN) -o test
