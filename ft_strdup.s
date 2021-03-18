@@ -3,22 +3,15 @@
 			extern	ft_strcpy
 			section .text
 
-; so what do we want. we want to go through rdi and copy it to rax which has been malloced
-; returns a char* takes a char*, so s1 is rdi and ret is rax
-; we need to count the len of rdi
-; then allocate that many bytes
-; then fill it with the correct bytes
-; then return them in rax
-
-; What are the inputs for Malloc?
-;	I'm guessing rax for the mem location and rdi for the number
+; src is rdi and ret is rax
 
 ft_strdup:
 			mov rax, 0x0
 			mov	r8, 0x0
 			cmp rdi, 0x0
 			je	end
-	; could have a special function here that allocates an empty string.
+			cmp	BYTE[rdi], 0x0
+			jz	empty
 
 count:
 			cmp BYTE[rdi + r8], 0x0
@@ -31,22 +24,21 @@ allocate:
 			push	rdi
 			mov		rdi, r8
 			call	malloc WRT ..plt
-			cmp		rax, 0
+			cmp		rax, 0x0
 			je		end
 
-fill:		; at this point rax is the new string location and has been allocated
+fill:
 			pop		rsi
 			mov		rdi, rax
 			call	ft_strcpy		; rdi is dst and rsi is src
+			jmp		end
+
+empty:
+			mov		rdi, 0x1
+			call	malloc WRT ..plt
+			cmp		rax, 0x0
+			jz		end
+			mov		BYTE[rax], 0x0
 
 end:
 			ret
-
-
-
-
-
-
-
-
-

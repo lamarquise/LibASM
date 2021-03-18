@@ -5,17 +5,22 @@
 ; al is the first 8 bit memory location
 
 ft_strcpy:
-		mov		rdx, 0
-		cmp		rsi, 0
+		mov		rax, 0x0
+		mov		rdx, 0x0
+		cmp		rsi, 0x0
 		jz		end
 		jmp		loop
+
 incr:
-		mov		al, byte [rsi + rdx]	; does it work if i don't use al?
-		mov		byte [rdi + rdx], al
+		mov		al, BYTE[rsi + rdx]
+		mov		BYTE[rdi + rdx], al
 		inc		rdx
+
 loop:
-		cmp		byte [rsi + rdx], 0
+		cmp		BYTE[rsi + rdx], 0x0
 		jne		incr
+
 end:
+		mov		BYTE[rdi + rdx], 0x0
 		mov		rax, rdi
 		ret
