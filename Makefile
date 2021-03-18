@@ -53,6 +53,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(TESTER)
 	echo "$(_RED)$(NAME) Deleted  😱$(_END)"
 
 re: fclean all
